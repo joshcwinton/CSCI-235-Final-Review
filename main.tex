@@ -1,0 +1,165 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CSCI 235 Final Review (Part 1: Slides)}
+\author{Josh Winton}
+\date{December 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\subsection{OOP Flash Review}
+\begin{itemize}
+    \item Classes group together variables (data) and functions (operations on the data)
+    \item Classes have:
+    \begin{itemize}
+        \item Member variables
+        \item Member functions (or methods)
+        \item Constructors (special function called when instance of class declared)
+        \item Destructors (special function called when instance of class is deleted)
+    \end{itemize}
+    \item Instances of a class are called objects
+    \item Think of classes as types and objects as variables
+    \item Class members can be declared \verb|public| or \verb|private|
+    \item \verb|public| members are the interface for client code interaction
+    \item \verb|private| members are hidden from other code and can only be used within the class
+    \item Put interface into a \verb|.h| or \verb|.hpp| file and implementation into a \verb|.cpp| file.
+\end{itemize}
+
+\subsection{Control Interaction}
+\begin{itemize}
+    \item Pass by value:\\ \verb|bool my_method(int some_int);|
+    \item Pass by reference when you need to modify the object:\\ \verb|bool my_method(ObjectType& some_object);|
+    \item Pass by constant reference if function doesn't modify object but you still want to call by reference:\\ \verb|bool my_method(const ObjectType& some_object);|
+\end{itemize}
+
+\section{Abstraction and OOP}
+\subsection{Abstraction}
+\begin{itemize}
+    \item Abstraction and Information Hiding are a means for entirely containing complexity
+    \item Implementation detail is abstracted away into a small set of commands executed by means of an interface
+    \item Information hiding prevents parts of a program from inadvertently (or deliberately) modifying implementations in unexpected ways
+\end{itemize}
+\subsection{Object Oriented Programming}
+\begin{itemize}
+    \item Object Oriented Analysis and Design
+    \begin{itemize}
+        \item Object-oriented analysis specifies what to do, not how to do it
+        \item Object-oriented design specifies software objects and their collaboration
+    \end{itemize}
+    \item Object Oriented Solution
+    \begin{itemize}
+        \item Create a good set of self contained units of code
+        \item Use classes of objects to combine attributes and behaviors (data members and member functions 
+    \end{itemize}
+    \item Principles of Object Oriented Programming 
+    \begin{itemize}
+        \item Encapsulation: Objects combine data and operations
+        \item Information Hiding: Objects hide inner details
+        \item Inheritance: Objects inherit properties from other objects
+        \item Polymorphism: Objects determine appropriate operations at execution
+    \end{itemize}
+    \item Operation contract specifies input and output and pre- and postconditions
+\end{itemize}
+
+\pagebreak
+
+\section{Abstract Data Types and Templates}
+\subsection{Constructors}
+\begin{itemize}
+    \item Declaration Example:
+    \begin{verbatim}
+class SomeClass
+{
+    public:
+        SomeClass();               //default constructor
+        SomeClass(parameter_list); //parameterized constructor
+    
+    private:
+        //private members go here
+};
+    \end{verbatim}
+    \item Implementation Example:
+    \begin{verbatim}  
+//default constructor
+SomeClass::SomeClass();
+member_var1_(initial value),
+member_var2_(initial value)
+{
+}
+
+//parameterized constructor
+SomeClass::SomeClass(type parameter_1, type parameter_2): 
+member_var1(parameter_1), member_var2(parameter_2) 
+{ 
+}
+\end{verbatim}
+    \item The default constructor is automatically supplied by the compiler if not defined
+    \item If only the parameterized constructor is provided, the compiler won't supply a default constructor and the class must be initialized with parameters
+\end{itemize}
+
+\subsection{Destructors}
+\begin{itemize}
+    \item Default destructors are automatically supplied by the compiler if not provided by the programmer
+    \item When a class uses dynamic memory allocation a destructor must be provided by the programmer
+    \item The destructor declaration is \verb|~SomeClass();|
+\end{itemize}
+
+\subsection{Templates}
+\begin{itemize}
+    \item Useful when implementing an abstract data type (like Bag) without locking the type
+    \item Vector is a template because you can do \verb|vector<type>|
+    \item Templates are declared as:
+    \begin{verbatim}
+template<class ItemType>
+class Bag
+{
+    //class declaration here
+}
+    \end{verbatim}
+    \item Templates are defined as:
+    \begin{verbatim}
+template<class ItemType>
+bool Bag<ItemType>::add(const ItemType& newEntry){
+    //implementation here
+}
+    \end{verbatim}
+    \item Instantiation (think of \verb|vector<int>|):
+    \begin{verbatim}
+Bag<string> stringBag;
+    \end{verbatim}
+    \item Always include \verb|.cpp| in the \verb|.h| file
+\end{itemize}
+
+\subsection{Inheritance}
+\begin{itemize}
+    \item \verb|const| after function name means that it won't modify the object
+    \item \verb|virtual| and \verb|=0| allow declaration without definition, forcing the derived class to define the function
+    \item Inheritance Example:
+    \begin{verbatim}
+class BatchPrinter: public Printer // inherit from printer
+{ 
+public:  
+    //Constructor, destructor 
+    void addDocument(const string& document); 
+    void printAllDocuments();
+private: 
+    vector<string> documents; 
+}; //end BatchPrinter
+    \end{verbatim}
+    \item Overloading is define a new function with the same name but a different parameter list
+    \item Overriding is rewriting a function with the same signature for a derived class, i.e.:
+    \begin{verbatim}
+//original function
+int BaseClass::someMethod(){} 
+
+//derived class, overriding function
+int DerivedClass::someMethod(){} 
+    \end{verbatim}
+    \item Derived classes inherit all \verb|public| and \verb|protected| members of base class
+    \item Derived classes have no access to private members
+    \item 
+\end{itemize}
+\end{document}
